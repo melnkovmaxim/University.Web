@@ -1,0 +1,31 @@
+﻿@using University.Repositories.Interfaces
+
+@model University.Models.Student
+@inject IGroupRepository GroupRepository
+
+@{
+    Layout = "_Layout";
+    ViewBag.SelectList = new SelectList(await GroupRepository.GetAll(), "Id", "Name", Model?.Group?.Id);
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+    <form asp-controller="Student" asp-action="AddStudent" asp-route-id="@Model?.Id" method="post">
+        <div class="form-group">
+            <label for="first-name">First name</label>
+            <input class="form-control" id="first-name" type="text" name="firstName" value="@Model?.FirstName" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label for="last-name">Last name</label>
+            <input class="form-control" id="last-name" type="text" name="lastName" value="@Model?.LastName" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label for="group-dropdown">Group</label>
+            @Html.DropDownList("groupId", ViewBag.SelectList as SelectList, new { @class = "form-control", @id = "group-dropdown" })
+        </div>
+
+        <input class="btn btn-success float-right submit-button" type="submit" value="Submit" />
+    </form>
+</div>

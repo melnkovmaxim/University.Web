@@ -1,0 +1,35 @@
+﻿@using University.Models
+@using University.Repositories
+@using University.Repositories.Interfaces
+
+@model University.Models.Group
+@inject ICourseRepository CourseRepository
+
+@{
+    Layout = "_Layout";
+    ViewBag.SelectList = new SelectList(await CourseRepository.GetAll(), "Id", "Name", Model?.Course?.Id);
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+    <form asp-controller="Group" asp-action="AddGroup" asp-route-id="@Model?.Id" method="post">
+        <div class="form-group">
+            <div>
+                <label for="group-name">Name</label>
+                <input class="form-control" id="group-name" type="text" name="Name" value="@Model?.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+            <div>
+                <label for="group-description">Description</label>
+                <input class="form-control" id="group-description" type="text" name="Description" value="@Model?.Description" />
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div>
+                <label for="course-dropdown">Course</label>
+                @Html.DropDownList("courseId", ViewBag.SelectList as SelectList, new { @class = "form-control", @id = "course-dropdown" })
+            </div>
+
+            <input class="btn btn-success float-right submit-button" type="submit" value="Submit" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<University.Models.Course>
+@{
+    Layout = "_Layout";
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody id="result">
+        @await Html.PartialAsync("Partial/TableBodyPage", Model)
+    </tbody>
+</table>

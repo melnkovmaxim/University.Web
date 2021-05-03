@@ -1,0 +1,22 @@
+﻿@model University.Models.Course
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+    <form asp-controller="Course" asp-action="AddCourse" asp-route-id="@Model?.Id" method="post">
+        <div class="form-group">
+            <label for="course-name">Name</label>
+            <input class="form-control" id="course-name" type="text" name="Name" value="@Model?.Name"/>
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label for="course-description">Description</label>
+            <input class="form-control" id="course-description" type="text" name="description" value="@Model?.Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
+
+        <input class="btn btn-success float-right submit-button" type="submit" value="Submit" />
+    </form>
+</div>
